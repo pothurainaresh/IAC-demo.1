@@ -1,0 +1,32 @@
+pipeline {
+    agent any
+
+  stages {
+    
+    stage('Git Checkout'){
+        steps{
+            git branch: 'main', url: https://github.com/pothurainaresh/IAC-demo.1
+        }
+    }
+
+    stage('Terraform Init') {
+      steps {
+          sh 'terraform init -input=false -no-color'
+        }
+      }
+    
+    stage('Terraform Plan') {
+      steps {
+          sh 'terraform plan -input=false -no-color'
+        }
+      }
+
+    
+
+    stage('TF Apply') {
+          steps{
+            sh 'terraform apply --auto-approve'
+      }      
+    }
+  }
+}
