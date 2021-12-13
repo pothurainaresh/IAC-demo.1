@@ -1,0 +1,27 @@
+pipeline {
+    agent any
+
+stages {
+    stage('git checkout'){
+        steps{
+            git branch: 'main' url: '
+        }
+    }
+ stage('Terraform Init'){
+     steps {
+         sh 'terraform init -input=false -no-color'
+        }
+     }
+  stage('Terraform Plan'){
+      steps {
+          sh 'terraform plan -input=false -no-color
+       }
+     } 
+  stage('TF Apply') {
+     steps {
+         sh 'terraform apply --auto-approve'
+     }
+  }
+}
+}  
+ 
